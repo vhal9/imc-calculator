@@ -19,10 +19,48 @@ export class HomePage {
 
   onCalculate() {
     const imc = this.weight / (this.height * this.height);
-    this.showMessage(`IMC = ${imc.toFixed(2)}`);
+    this.showMessage(this.getMessageIMC(imc));
   }
 
-  async showMessage(msg: string) {
+  getMessageIMC(imc: number) {
+
+    let msg = {
+      text: '',
+      color: ''
+    };
+
+    if (imc < 18.5) {
+
+      msg.text = 'Magreza';
+      msg.color = 'warning';
+
+    } else if (imc < 25.0) {
+
+      msg.text = 'Normal';
+      msg.color = 'success';
+
+    } else if (imc < 30.0) {
+
+      msg.text = 'Sobrepeso';
+      msg.color = 'warning';
+
+    } else if (imc < 40.0) {
+      
+      msg.text = 'Obesidade';
+      msg.color = 'danger';
+
+    } else  {
+
+      msg.text = 'Obesidade Grave';
+      msg.color = 'danger'
+
+    }
+
+    return msg;
+
+  }
+
+  async showMessage(msg) {
     const previousToast = await this.toastController.getTop();
     if (previousToast) {
       await this.toastController.dismiss();
@@ -30,8 +68,8 @@ export class HomePage {
 
     const toast = await this.toastController.create(
       {
-        message: msg,
-        color: 'light',
+        message: msg.text,
+        color: msg.color,
         buttons: [
           {
             icon: 'close'
