@@ -1,4 +1,4 @@
-# Calculadora de IMC
+# Calculadora de IMC - Trabalho da Disciplina Implementação e Modelagem de Software
 
 Mais uma aplicação para cálculo de Índice de Massa Corporal (IMC).
 
